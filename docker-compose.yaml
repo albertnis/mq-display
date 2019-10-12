@@ -1,0 +1,6 @@
+version: "3.3"
+services:
+  mq-display:
+    build: .
+    ports:
+    - "8080:80"
