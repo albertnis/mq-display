@@ -11,11 +11,11 @@ const frontend = {
     },
     devtool: 'inline-source-map',
     output: {
-      path: path.resolve(__dirname),
+      path: path.resolve(__dirname, './static'),
       filename: "client.js"
     },
     devServer: {
-      contentBase: path.resolve(__dirname, './src'),
+      contentBase: path.resolve(__dirname, './static'),
       port: 4000
     },
     module: {
