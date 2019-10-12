@@ -20,4 +20,4 @@ FROM halverneus/static-file-server:v1.6.6
 COPY --from=build /project/static /web
 
 ENV FOLDER /web
-ENV PORT 8080
+ENV PORT 80

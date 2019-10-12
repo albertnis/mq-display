@@ -43,7 +43,8 @@ const frontend = {
     },
     plugins: [
       new webpack.DefinePlugin({
-        'API_URL': JSON.stringify(env.API_URL[environment])
+        'MQTT_HOST': JSON.stringify(env.MQTT_HOST[environment]),
+        'MQTT_PORT': JSON.stringify(env.MQTT_PORT[environment])
       })
     ]
   };

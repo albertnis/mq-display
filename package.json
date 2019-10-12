@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/albertnis/mq-display#readme",
   "dependencies": {
+    "async-mqtt": "^2.4.2",
+    "mqtt": "^3.0.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.3",
     "react-router": "^4.3.1",
