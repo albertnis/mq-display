@@ -24,5 +24,5 @@ docker run -p 8080:80 mq-display
 
 ### Compose
 ```sh
-docker-compose up
+docker-compose up --build
 ```
