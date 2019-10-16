@@ -3,6 +3,6 @@ import MqClient from "./MqClient";
 
 export default () => (
     <div>
-        <MqClient />
+        <MqClient topic="virtual/screen/#" />
     </div>
 )
