@@ -1,6 +1,6 @@
 const MQTT_HOST = {
-    production: '192.168.1.110',
-    development: '192.168.1.110'
+    production: 'localhost',
+    development: 'localhost'
 };
 
 const MQTT_PORT = {
