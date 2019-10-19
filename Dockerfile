@@ -3,16 +3,17 @@ FROM node:12.11 as build
 
 WORKDIR /project
 
-COPY env.js .
 COPY package.json .
-COPY tsconfig.json .
-COPY webpack.config.js .
 
+RUN npm install
+
+COPY webpack.config.js .
+COPY env.js .
+COPY tsconfig.json .
 COPY src src/
 COPY static static/
 
-RUN npm install \
- && npm run build
+RUN npm run build
 
 # Deployment image
 FROM halverneus/static-file-server:v1.6.6

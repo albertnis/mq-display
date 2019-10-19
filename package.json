@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-server": "webpack-dev-server --config webpack.config.js --mode development --host 0.0.0.0",
-    "build": "webpack"
+    "dev-server": "webpack-dev-server --config webpack.config.js --host 0.0.0.0",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
