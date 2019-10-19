@@ -1,9 +1,10 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 
-interface IPaneData {
+export interface IPaneData {
   message: string
   brightness: number
+  duration: number
 }
 
 interface IPaneProps {

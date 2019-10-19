@@ -1,6 +1,6 @@
 import mqtt, { IMqttClient, IClientOptions } from 'async-mqtt'
 import React from 'react'
-import MessagePane from './MessagePane'
+import MessagePane, { IPaneData } from './MessagePane'
 
 declare const MQTT_HOST: string
 declare const MQTT_PORT: string
@@ -104,34 +104,21 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
       })
   }
 
-  disconnectFromMqHost() {
-    let disconnectPromise = new Promise((resolve, reject) => {
-      this.state.client.end()
-      resolve()
-    })
-
-    this.setState({
-      status: MqClientStatus.Loading
-    })
-    
-    disconnectPromise.then((result: any )=> {
-      this.setState({
-        client: null,
-        status: MqClientStatus.Good
-      })
-    }).catch((reason: any) => {
-        this.setState({
-        status: MqClientStatus.Error
-      })
-    })
+  makePaneData(mqMessage: IMqMessage): IPaneData {
+    try {
+      return JSON.parse(mqMessage.payload)
+    }
+    catch {
+      return {
+        brightness: 50,
+        duration: 0,
+        message: `Unrecognised message: ${mqMessage.payload}`
+      }
+    }
   }
 
   componentDidMount() {
     this.connectToMqHost()
-  }
-
-  componentWillUnmount() {
-    this.disconnectFromMqHost()
   }
 
   render() {
@@ -141,7 +128,7 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
         {this.state.status == MqClientStatus.Loading && <span>Loading</span>}
         {this.state.status == MqClientStatus.Error && <span>Error</span>}
         {this.state.messages.map((m, i) => (
-          <MessagePane key={i} title={m.topic} data={JSON.parse(m.payload)} />
+          <MessagePane key={i} title={m.topic} data={this.makePaneData(m)} />
         ))}
         
       </div>
