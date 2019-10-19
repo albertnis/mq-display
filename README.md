@@ -26,3 +26,18 @@ docker run -p 8080:80 mq-display
 ```sh
 docker-compose up --build
 ```
+
+## Manual test locally
+
+A mosquitto container is configured in `docker-compose.yaml`:
+
+```sh
+docker-compose up mosquitto
+```
+
+Publish a basic retained message with the following:
+
+```sh
+docker exec -t mosquitto mosquitto_pub -h localhost -t "virtual/screen/1" -m "{\"brightness\":\"100\",\"message\":\"Fun times\"}" -r
+```
+

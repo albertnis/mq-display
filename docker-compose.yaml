@@ -3,4 +3,11 @@ services:
   mq-display:
     build: .
     ports:
-    - "8080:80"
+    - 8080:80
+  mosquitto:
+    image: eclipse-mosquitto
+    container_name: mosquitto
+    volumes:
+    - ./mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    ports:
+    - 9001:9001
