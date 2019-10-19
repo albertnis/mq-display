@@ -112,7 +112,7 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
       return {
         brightness: 50,
         duration: 0,
-        message: `Unrecognised message: ${mqMessage.payload}`
+        message: `*Unrecognised message: *${mqMessage.payload}`
       }
     }
   }
