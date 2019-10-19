@@ -1,5 +1,5 @@
 const MQTT_HOST = {
-    production: 'localhost',
+    production: '192.168.1.110',
     development: 'localhost'
 };
 
