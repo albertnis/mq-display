@@ -47,12 +47,15 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: opacity 5s ease-in-out;
     font-size: 2em;
     cursor: default;
 }
 
-.messagePane-message {
+.messageDisplay {
+    transition: opacity 5s ease-in-out;
+}
+
+.messageDisplay-message {
     text-align: center;
 }
 
@@ -68,5 +71,5 @@ body, html {
 
 .messagePane:hover
 .messagePane-toolbar {
-    opacity: 1;
+    opacity: 0;
 }

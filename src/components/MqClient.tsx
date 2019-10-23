@@ -25,6 +25,7 @@ interface IMqClientProps {
 interface IMqMessage { 
   topic: string
   payload: string
+  timestamp: number
 }
 
 interface IMqClientState {
@@ -50,7 +51,8 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
     
     messages.push({
       topic,
-      payload: payload.toString()
+      payload: payload.toString(),
+      timestamp: Date.now()
     })
 
     this.setState({ messages })
@@ -104,15 +106,19 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
       })
   }
 
-  makePaneData(mqMessage: IMqMessage): IPaneData {
+  makePaneData(mqMessage: IMqMessage, timestamp: number): IPaneData {
     try {
-      return JSON.parse(mqMessage.payload)
+      return {
+        ...JSON.parse(mqMessage.payload),
+        timestamp
+      }
     }
     catch {
       return {
         brightness: 50,
         duration: 0,
-        message: `*Unrecognised message: *${mqMessage.payload}`
+        message: `*Unrecognised message: *${mqMessage.payload}`,
+        timestamp
       }
     }
   }
@@ -122,13 +128,12 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
   }
 
   render() {
-    let thangz = ['a', 'b', 'c']
     return (
       <div>
         {this.state.status == MqClientStatus.Loading && <span>Loading</span>}
         {this.state.status == MqClientStatus.Error && <span>Error</span>}
         {this.state.messages.map((m, i) => (
-          <MessagePane key={i} title={m.topic} data={this.makePaneData(m)} />
+          <MessagePane key={m.topic} title={m.topic} data={this.makePaneData(m, m.timestamp)} />
         ))}
         
       </div>

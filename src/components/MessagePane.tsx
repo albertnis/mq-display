@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
+import MessageDisplay from './MessageDisplay'
 
 export interface IPaneData {
   message: string
   brightness: number
   duration: number
+  timestamp: number
 }
 
 interface IPaneProps {
@@ -17,17 +19,8 @@ interface IPaneState {
 }
 
 export default (props: IPaneProps) => {
-  let { brightness, message, duration } = props.data
-  const [opacity, setOpacity] = useState(brightness / 100)
-
-  useEffect(() => {
-    if (duration != null && duration > 0) {
-      const timer = setTimeout(() => {
-        setOpacity(0)
-      }, duration)
-      return () => clearTimeout(timer)
-    }
-  })
+  let { brightness, message, duration, timestamp } = props.data
+  const opacity = brightness / 100
 
   return (
     <div
@@ -37,7 +30,7 @@ export default (props: IPaneProps) => {
         className="messagePane-data"
         style={{ opacity }}
       >
-        <ReactMarkdown className="messagePane-message" source={message} />
+        <MessageDisplay key={timestamp} timestamp={timestamp} message={message} duration={duration} />
       </div>
       <div className="messagePane-toolbar">
         <div className="messagePane-toolbar-topic">
