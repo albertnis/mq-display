@@ -50,14 +50,15 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
     })
 
     let timestamp = Date.now()
-
-    console.log(`message received at ${timestamp}`)
+    let payloadstr = payload.toString()
     
-    messages.push({
-      topic,
-      payload: payload.toString(),
-      timestamp
-    })
+    if (payloadstr !== '') {
+      messages.push({
+        topic,
+        payload: payload.toString(),
+        timestamp
+      })
+    }
 
     this.setState({ messages })
   }
@@ -132,11 +133,15 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
   }
 
   render() {
+    let timeSortedMessages = this.state.messages.sort((a, b) => (
+      b.timestamp - a.timestamp
+    ))
+
     return (
       <div>
         {this.state.status == MqClientStatus.Loading && <span>Loading</span>}
         {this.state.status == MqClientStatus.Error && <span>Error</span>}
-        {this.state.messages.map((m, i) => (
+        {timeSortedMessages.map((m, i) => (
           <MessagePane key={m.topic} topic={m.topic} data={this.makePaneData(m, m.timestamp)} />
         ))}
         

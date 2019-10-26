@@ -27,7 +27,6 @@ const MessageDisplay = (props: IMessageDisplayProps) => {
       {props.title !== undefined &&
         <>
           <div className="messageDisplay-title">{props.title}</div>
-          <hr />
         </>
       }
       </div>
