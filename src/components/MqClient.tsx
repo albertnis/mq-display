@@ -6,7 +6,7 @@ declare const MQTT_HOST: string
 declare const MQTT_PORT: string
 
 const clientOptions: IClientOptions = {
-  clientId: 'mq-display',
+  clientId: `mq-display-${Math.floor(Math.random() * 1e9)}`,
   connectTimeout: 1000,
   hostname: MQTT_HOST,
   port: parseInt(MQTT_PORT)
@@ -48,11 +48,15 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
     let messages = this.state.messages.filter(m => {
       return m.topic != topic
     })
+
+    let timestamp = Date.now()
+
+    console.log(`message received at ${timestamp}`)
     
     messages.push({
       topic,
       payload: payload.toString(),
-      timestamp: Date.now()
+      timestamp
     })
 
     this.setState({ messages })
@@ -117,7 +121,7 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
       return {
         brightness: 50,
         duration: 0,
-        message: `*Unrecognised message: *${mqMessage.payload}`,
+        message: `*Unrecognised message:* ${mqMessage.payload}`,
         timestamp
       }
     }
@@ -133,7 +137,7 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
         {this.state.status == MqClientStatus.Loading && <span>Loading</span>}
         {this.state.status == MqClientStatus.Error && <span>Error</span>}
         {this.state.messages.map((m, i) => (
-          <MessagePane key={m.topic} title={m.topic} data={this.makePaneData(m, m.timestamp)} />
+          <MessagePane key={m.topic} topic={m.topic} data={this.makePaneData(m, m.timestamp)} />
         ))}
         
       </div>

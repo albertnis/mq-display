@@ -7,19 +7,20 @@ export interface IPaneData {
   brightness: number
   duration: number
   timestamp: number
+  title?: string
 }
 
 interface IPaneProps {
   data: IPaneData
-  title: string
+  topic: string
 }
 
 interface IPaneState {
 
 }
 
-export default (props: IPaneProps) => {
-  let { brightness, message, duration, timestamp } = props.data
+const MessagePane = (props: IPaneProps) => {
+  let { brightness, message, duration, timestamp, title } = props.data
   const opacity = brightness / 100
 
   return (
@@ -30,13 +31,15 @@ export default (props: IPaneProps) => {
         className="messagePane-data"
         style={{ opacity }}
       >
-        <MessageDisplay key={timestamp} timestamp={timestamp} message={message} duration={duration} />
+        <MessageDisplay title={title} key={timestamp} timestamp={timestamp} message={message} duration={duration} />
       </div>
       <div className="messagePane-toolbar">
         <div className="messagePane-toolbar-topic">
-          {props.title}
+          {props.topic}
         </div>
       </div>
     </div>
   )
 }
+
+export default MessagePane

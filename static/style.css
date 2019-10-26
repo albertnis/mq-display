@@ -26,7 +26,7 @@ mark, audio, video {
 }
 
 html {
-    font-family: sans-serif;
+    font-family: 'Be Vietnam', sans-serif;
 }
 
 body, html {
@@ -72,4 +72,10 @@ body, html {
 .messagePane:hover
 .messagePane-toolbar {
     opacity: 0;
+}
+
+.messageDisplay-titleBlock {
+    opacity: .7;
+    font-size: .8em;
+    font-weight: 700;
 }

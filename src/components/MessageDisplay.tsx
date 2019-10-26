@@ -5,6 +5,7 @@ interface IMessageDisplayProps {
   message: string
   duration: number
   timestamp: number
+  title: string
 }
 
 const MessageDisplay = (props: IMessageDisplayProps) => {
@@ -22,6 +23,14 @@ const MessageDisplay = (props: IMessageDisplayProps) => {
 
   return (
     <div className="messageDisplay" style={{ opacity }} >
+      <div className="messageDisplay-titleBlock">
+      {props.title !== undefined &&
+        <>
+          <div className="messageDisplay-title">{props.title}</div>
+          <hr />
+        </>
+      }
+      </div>
       <ReactMarkdown className="messageDisplay-message" source={message} />
     </div>
   )
