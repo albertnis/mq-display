@@ -82,3 +82,12 @@ body, html {
     font-weight: 700;
     text-align: center;
 }
+
+.notice {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    text-align: center;
+}

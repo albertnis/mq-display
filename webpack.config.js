@@ -1,8 +1,4 @@
 const path = require("path");
-const webpack = require("webpack")
-const env = require("./env")
-
-var environment = process.argv.indexOf('-p') !== -1 ? 'production' : 'development';
 
 // Frontend - bundle for client
 const frontend = {
@@ -40,13 +36,7 @@ const frontend = {
     },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx']
-    },
-    plugins: [
-      new webpack.DefinePlugin({
-        'MQTT_HOST': JSON.stringify(env.MQTT_HOST[environment]),
-        'MQTT_PORT': JSON.stringify(env.MQTT_PORT[environment])
-      })
-    ]
+    }
   };
 
 module.exports = [frontend];

@@ -1,16 +1,14 @@
 import mqtt, { IMqttClient, IClientOptions } from 'async-mqtt'
 import React from 'react'
 import MessagePane, { IPaneData } from './MessagePane'
+import Notice from './Notice'
 
-declare const MQTT_HOST: string
-declare const MQTT_PORT: string
-
-const clientOptions: IClientOptions = {
-  clientId: `mq-display-${Math.floor(Math.random() * 1e9)}`,
+const clientOptions = (hostname: string, port: number): IClientOptions => ({
+  clientId: `mq-display-${Date.now()}`,
   connectTimeout: 1000,
-  hostname: MQTT_HOST,
-  port: parseInt(MQTT_PORT)
-}
+  hostname,
+  port
+})
 
 enum MqClientStatus {
   Good = 0,
@@ -20,6 +18,8 @@ enum MqClientStatus {
 
 interface IMqClientProps {
     topic: string
+    host: string,
+    port: number
 }
 
 interface IMqMessage { 
@@ -65,11 +65,12 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
 
   connectToMqHost() {
       let connectPromise = new Promise((resolve, reject) => {
-        console.log(`Connecting to host ${MQTT_HOST}`)
-        let client = mqtt.connect(clientOptions)
+        let options = clientOptions(this.props.host, this.props.port)
+        console.log(`Connecting to host ${this.props.host}`)
+        let client = mqtt.connect(options)
         let timeout = setTimeout(
           () => reject("Client connect timeout"),
-          clientOptions.connectTimeout
+          options.connectTimeout
         )
         client.on(
           "connect",
@@ -138,14 +139,18 @@ class MqClient extends React.Component<IMqClientProps, IMqClientState> {
     ))
 
     return (
-      <div>
-        {this.state.status == MqClientStatus.Loading && <span>Loading</span>}
-        {this.state.status == MqClientStatus.Error && <span>Error</span>}
+      <>
+        {this.state.status == MqClientStatus.Loading &&
+          <Notice>Connecting...</Notice>
+        }
+        {this.state.status == MqClientStatus.Error &&
+          <Notice>An error occurred while connecting to broker</Notice>
+        }
         {timeSortedMessages.map((m, i) => (
           <MessagePane key={m.topic} topic={m.topic} data={this.makePaneData(m, m.timestamp)} />
         ))}
         
-      </div>
+      </>
     )
   }
 }
