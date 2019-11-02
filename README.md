@@ -4,6 +4,8 @@
 
 Use any web browser as an IoT-connected display.
 
+![Photo of mq-display](https://albertnis.com/resources/2019-11-02-iot-display-mqtt/mqdisplay-t.jpg)
+
 ## Pre-requisites
 
 You'll need an MQTT broker configured to use websockets. See [mosquitto.conf]() for an example of a **very** minimal mosquitto configuration that works. For local development a broker has been included (see [Develop it](#develop-it)). Encrypted websockets are not currently supported.
