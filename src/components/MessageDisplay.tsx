@@ -1,5 +1,5 @@
-import ReactMarkdown from "react-markdown";
-import React, { useEffect, useState } from "react";
+import ReactMarkdown from 'react-markdown'
+import React, { useEffect, useState } from 'react'
 
 interface IMessageDisplayProps {
   message: string
@@ -22,21 +22,22 @@ const MessageDisplay = (props: IMessageDisplayProps) => {
   })
 
   return (
-    <div className="messageDisplay" style={{ opacity }} >
+    <div className="messageDisplay" style={{ opacity }}>
       <div className="messageDisplay-titleBlock">
-      {props.title !== undefined &&
-        <>
-          <div className="messageDisplay-title">{props.title}</div>
-        </>
-      }
+        {props.title !== undefined && (
+          <>
+            <div className="messageDisplay-title">{props.title}</div>
+          </>
+        )}
       </div>
-      <ReactMarkdown className="messageDisplay-message" source={message} />
+      <ReactMarkdown className="messageDisplay-message" children={message} />
     </div>
   )
 }
 
-const timestampsEqual = (prevProps: IMessageDisplayProps, nextProps: IMessageDisplayProps) => (
-  nextProps.timestamp === prevProps.timestamp
-)
+const timestampsEqual = (
+  prevProps: IMessageDisplayProps,
+  nextProps: IMessageDisplayProps
+) => nextProps.timestamp === prevProps.timestamp
 
 export default React.memo(MessageDisplay, timestampsEqual)

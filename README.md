@@ -10,7 +10,6 @@ Use any web browser as an IoT-connected display.
 
 You'll need an MQTT broker configured to use websockets. See [mosquitto.conf]() for an example of a **very** minimal mosquitto configuration that works. For local development a broker has been included (see [Develop it](#develop-it)). Encrypted websockets are not currently supported.
 
-
 # Run it
 
 Simply add to an exising docker-compose file with a remote build target. No prior clone required!
@@ -29,6 +28,7 @@ services:
 Alternatively clone and build with Docker or Docker Compose:
 
 - Docker
+
   ```sh
   docker build -t mq-display .
   docker run -p 8080:80 mq-display
@@ -45,11 +45,11 @@ Once it's up and running, go to the host and specify the MQTT host as a URL para
 
 ## Query string parameters
 
-Parameter key | Description | Default
---- | --- | ---
-host | MQTT broker host name | *[required]*
-port | MQTT websockets port | 9001
-topic | Topic to subscribe to | virtual/screen/#
+| Parameter key | Description           | Default          |
+| ------------- | --------------------- | ---------------- |
+| host          | MQTT broker host name | _[required]_     |
+| port          | MQTT websockets port  | 9001             |
+| topic         | Topic to subscribe to | virtual/screen/# |
 
 > Remember to use URL-escaped characters when specifying a topic.
 
